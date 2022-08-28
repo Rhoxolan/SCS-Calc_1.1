@@ -77,6 +77,21 @@ namespace SKS_Calc_1._1
             }
         }
 
+        private void buttonSettings_Click(object sender, EventArgs e) //Переход в режим "Настройки"
+        {
+            if (ChildControls != null && ChildControls.Count > 0)
+            {
+                foreach (UserControl uc in ChildControls)
+                {
+                    if (uc is SettingsControl)
+                    {
+                        this.Visible = false;
+                        uc.Visible = true;
+                    }
+                }
+            }
+        }
+
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
             if (checkBoxCableHankMeterage.Checked)

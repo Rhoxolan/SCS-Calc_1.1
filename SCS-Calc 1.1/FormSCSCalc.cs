@@ -8,6 +8,7 @@ namespace SKS_Calc_1._1
         private BindingList<Configuration> configurations;
         private CalculateControl calculateControl;
         private HistoryControl historyControl;
+        private SettingsControl settingsControl;
         private InformationControl informationControl;
         private string folderPath;
         private string docPath;
@@ -20,10 +21,13 @@ namespace SKS_Calc_1._1
             Loader();
             calculateControl = new(configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
             historyControl = new(configurations, docPath);
+            settingsControl = new(configurations, docPath);
             informationControl = new(configurations, docPath);
             calculateControl.ChildControls.Add(historyControl);
+            calculateControl.ChildControls.Add(settingsControl);
             calculateControl.ChildControls.Add(informationControl);
             historyControl.ParentControl = calculateControl;
+            settingsControl.ParentControl = calculateControl;
             informationControl.ParentControl = calculateControl;
 
             /* При добавлении в приложение новых UserControl-ов, которые будут представлять новый режим, уровень или
@@ -39,11 +43,18 @@ namespace SKS_Calc_1._1
         {
             calculateControl.Location = new Point(5, 7);
             this.Controls.Add(calculateControl);
+
             historyControl.Location = new Point(5, 7);
             this.Controls.Add(historyControl);
+
             informationControl.Location = new Point(5, 7);
             this.Controls.Add(informationControl);
+
+            settingsControl.Location = new Point(5, 7);
+            this.Controls.Add(settingsControl);
+
             historyControl.Visible = false;
+            settingsControl.Visible = false;
             informationControl.Visible = false;
         }
 

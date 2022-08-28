@@ -73,6 +73,7 @@
             this.buttonInfo = new System.Windows.Forms.Button();
             this.buttonHistory = new System.Windows.Forms.Button();
             this.toolTipHelp = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinPermanentLink)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPermanentLink)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfWorkplaces)).BeginInit();
@@ -597,7 +598,7 @@
             // 
             // buttonHistory
             // 
-            this.buttonHistory.Location = new System.Drawing.Point(295, 233);
+            this.buttonHistory.Location = new System.Drawing.Point(406, 204);
             this.buttonHistory.Name = "buttonHistory";
             this.buttonHistory.Size = new System.Drawing.Size(105, 23);
             this.buttonHistory.TabIndex = 16;
@@ -612,11 +613,25 @@
             // 
             this.toolTipHelp.AutomaticDelay = 1000;
             // 
+            // buttonSettings
+            // 
+            this.buttonSettings.Location = new System.Drawing.Point(406, 175);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(105, 23);
+            this.buttonSettings.TabIndex = 17;
+            this.buttonSettings.Text = "Настройки";
+            this.toolTipHelp.SetToolTip(this.buttonSettings, "Просмотреть историю расчётов конфигураций. В режиме истории вы сможете просматрив" +
+        "ать или удалять\r\nпредыдущие конфигурации, а так же сохранять в TXT любую выбранн" +
+        "ую предыдущую конфигурацию");
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            // 
             // CalculateControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Controls.Add(this.buttonSettings);
             this.Controls.Add(this.buttonHistory);
             this.Controls.Add(this.buttonInfo);
             this.Controls.Add(this.groupBoxOutput);
@@ -694,5 +709,6 @@
         private Label labelOutputCableHankMeterage;
         private TextBox textBoxOutputCableHankMeterage;
         private Label labelMeters8;
+        private Button buttonSettings;
     }
 }
