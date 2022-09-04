@@ -3,32 +3,15 @@ using System.Diagnostics;
 
 namespace SKS_Calc_1._1
 {
-    public partial class InformationControl : UserControl
+    public partial class InformationControl : SCSCalcControl
     {
-        private BindingList<Configuration> configurations;
-        private string docPath;
-
-        public UserControl? ParentControl { get; set; }
-
-        public List<UserControl>? ChildControls { get; set; }
-
-        public InformationControl(BindingList<Configuration> configurations, string docPath)
+        public InformationControl(BindingList<Configuration> configurations, string docPath) : base(configurations, docPath)
         {
             InitializeComponent();
-            ParentControl = null;
-            ChildControls = new();
-            this.configurations = configurations;
-            this.docPath = docPath;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e) //Переход в предыдущий режим
-        {
-            if (ParentControl != null)
-            {
-                this.Visible = false;
-                ParentControl.Visible = true;
-            }
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => GoBack();
+
 
         private void InformationControl_Load(object sender, EventArgs e)
         {

@@ -2,22 +2,11 @@
 
 namespace SKS_Calc_1._1
 {
-    public partial class SettingsControl : UserControl
+    public partial class SettingsControl : SCSCalcControl
     {
-        private BindingList<Configuration> configurations;
-        private string docPath;
-
-        public UserControl? ParentControl { get; set; }
-
-        public List<UserControl>? ChildControls { get; set; }
-
-        public SettingsControl(BindingList<Configuration> configurations, string docPath)
+        public SettingsControl(BindingList<Configuration> configurations, string docPath) : base(configurations, docPath)
         {
             InitializeComponent();
-            ParentControl = null;
-            ChildControls = new();
-            this.configurations = configurations;
-            this.docPath = docPath;
         }
 
         private void SettingsControl_Load(object sender, EventArgs e)
@@ -26,14 +15,7 @@ namespace SKS_Calc_1._1
             checkBoxStrictСomplianceWithTheStandart.Checked = true;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            if (ParentControl != null)
-            {
-                this.Visible = false;
-                ParentControl.Visible = true;
-            }
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => GoBack();
 
         private void checkBoxStrictСomplianceWithTheStandart_CheckedChanged(object sender, EventArgs e)
         {
