@@ -31,7 +31,7 @@
             this.buttonBack = new System.Windows.Forms.Button();
             this.checkBoxStrictСomplianceWithTheStandart = new System.Windows.Forms.CheckBox();
             this.checkBoxAnArbitraryNumberOfPorts = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxTechnologicalReserve = new System.Windows.Forms.CheckBox();
             this.numericUpDownTechnologicalReserve = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTechnologicalReserve)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +55,7 @@
             this.checkBoxStrictСomplianceWithTheStandart.TabIndex = 22;
             this.checkBoxStrictСomplianceWithTheStandart.Text = "Строгое соответствие стандарту ISO/IEC 11801";
             this.checkBoxStrictСomplianceWithTheStandart.UseVisualStyleBackColor = true;
+            this.checkBoxStrictСomplianceWithTheStandart.CheckedChanged += new System.EventHandler(this.checkBoxStrictСomplianceWithTheStandart_CheckedChanged);
             // 
             // checkBoxAnArbitraryNumberOfPorts
             // 
@@ -66,15 +67,16 @@
             this.checkBoxAnArbitraryNumberOfPorts.Text = "Разрешить произвольное количество портов на 1 рабочее место";
             this.checkBoxAnArbitraryNumberOfPorts.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxTechnologicalReserve
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(3, 53);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(306, 19);
-            this.checkBox1.TabIndex = 24;
-            this.checkBox1.Text = "Учитывать коэффициент технологического запаса";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxTechnologicalReserve.AutoSize = true;
+            this.checkBoxTechnologicalReserve.Location = new System.Drawing.Point(3, 53);
+            this.checkBoxTechnologicalReserve.Name = "checkBoxTechnologicalReserve";
+            this.checkBoxTechnologicalReserve.Size = new System.Drawing.Size(306, 19);
+            this.checkBoxTechnologicalReserve.TabIndex = 24;
+            this.checkBoxTechnologicalReserve.Text = "Учитывать коэффициент технологического запаса";
+            this.checkBoxTechnologicalReserve.UseVisualStyleBackColor = true;
+            this.checkBoxTechnologicalReserve.CheckedChanged += new System.EventHandler(this.checkBoxTechnologicalReserve_CheckedChanged);
             // 
             // numericUpDownTechnologicalReserve
             // 
@@ -105,12 +107,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Controls.Add(this.numericUpDownTechnologicalReserve);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxTechnologicalReserve);
             this.Controls.Add(this.checkBoxAnArbitraryNumberOfPorts);
             this.Controls.Add(this.checkBoxStrictСomplianceWithTheStandart);
             this.Controls.Add(this.buttonBack);
             this.Name = "SettingsControl";
             this.Size = new System.Drawing.Size(514, 585);
+            this.Load += new System.EventHandler(this.SettingsControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTechnologicalReserve)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -122,7 +125,7 @@
         private Button buttonBack;
         private CheckBox checkBoxStrictСomplianceWithTheStandart;
         private CheckBox checkBoxAnArbitraryNumberOfPorts;
-        private CheckBox checkBox1;
+        private CheckBox checkBoxTechnologicalReserve;
         private NumericUpDown numericUpDownTechnologicalReserve;
     }
 }
