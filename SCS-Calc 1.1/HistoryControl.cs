@@ -3,15 +3,8 @@ using System.Text.Json;
 
 namespace SKS_Calc_1._1
 {
-    public partial class HistoryControl : UserControl, ISCSCalcControl
+    public partial class HistoryControl : SCSCalcControl
     {
-        protected BindingList<Configuration> configurations;
-        protected string docPath;
-
-        public UserControl? ParentControl { get; set; }
-
-        public List<UserControl>? ChildControls { get; set; }
-
         public HistoryControl(BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
@@ -22,14 +15,7 @@ namespace SKS_Calc_1._1
             listBoxConfigurationsList.DataSource = configurations;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e) //Переход в предыдущий режим
-        {
-            if (ParentControl != null)
-            {
-                this.Visible = false;
-                ParentControl.Visible = true;
-            }
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => GoBack(); //Переход в предыдущий режим
 
         private void listBoxConfigurationsList_SelectedIndexChanged(object sender, EventArgs e)
         {

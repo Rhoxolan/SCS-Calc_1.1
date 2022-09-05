@@ -2,15 +2,8 @@
 
 namespace SKS_Calc_1._1
 {
-    public partial class SettingsControl : UserControl, ISCSCalcControl
+    public partial class SettingsControl : SCSCalcControl
     {
-        protected BindingList<Configuration> configurations;
-        protected string docPath;
-
-        public UserControl? ParentControl { get; set; }
-
-        public List<UserControl>? ChildControls { get; set; }
-
         public SettingsControl(BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
@@ -26,18 +19,11 @@ namespace SKS_Calc_1._1
             checkBoxStrictСomplianceWithTheStandart.Checked = true;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            if (ParentControl != null)
-            {
-                this.Visible = false;
-                ParentControl.Visible = true;
-            }
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => GoBack(); //Переход в предыдущий режим
 
         private void checkBoxStrictСomplianceWithTheStandart_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBoxStrictСomplianceWithTheStandart.Checked)
+            if (checkBoxStrictСomplianceWithTheStandart.Checked)
             {
                 checkBoxAnArbitraryNumberOfPorts.Enabled = true;
             }
