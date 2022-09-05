@@ -3,11 +3,22 @@ using System.Text.Json;
 
 namespace SKS_Calc_1._1
 {
-    public partial class CalculateControl : SCSCalcControl
+    public partial class CalculateControl : UserControl, ISCSCalcControl
     {
-        public CalculateControl(BindingList<Configuration> configurations, string docPath) : base(configurations, docPath)
+        protected BindingList<Configuration> configurations;
+        protected string docPath;
+
+        public UserControl? ParentControl { get; set; }
+
+        public List<UserControl>? ChildControls { get; set; }
+
+        public CalculateControl(BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
+            ParentControl = null;
+            ChildControls = new();
+            this.configurations = configurations;
+            this.docPath = docPath;
             this.Load += OutputBlockCleaner; //Устанавливаем начальное отображение блока вывода
             buttonCalculate.Click += Saver; //Добавляем обработчик для сохранения данных списка конфигураций
             numericUpDownMinPermanentLink.ValueChanged += OutputBlockCleaner; //Очищаем блок вывода при любых изменениях
@@ -38,17 +49,50 @@ namespace SKS_Calc_1._1
 
         private void buttonHistory_Click(object sender, EventArgs e) //Переход в режим "История"
         {
-            TransitionInto(typeof(HistoryControl));
+            if (ChildControls != null && ChildControls.Count > 0)
+            {
+                foreach (UserControl uc in ChildControls)
+                {
+                    if (uc is HistoryControl)
+                    {
+                        this.Visible = false;
+                        uc.Visible = true;
+                        return;
+                    }
+                }
+            }
         }
 
         private void buttonInfo_Click(object sender, EventArgs e) //Переход в режим "Информация"
         {
-            TransitionInto(typeof(InformationControl));
+            if (ChildControls != null && ChildControls.Count > 0)
+            {
+                foreach (UserControl uc in ChildControls)
+                {
+                    if (uc is InformationControl)
+                    {
+                        this.Visible = false;
+                        uc.Visible = true;
+                        return;
+                    }
+                }
+            }
         }
 
         private void buttonSettings_Click(object sender, EventArgs e) //Переход в режим "Настройки"
         {
-            TransitionInto(typeof(SettingsControl));
+            if (ChildControls != null && ChildControls.Count > 0)
+            {
+                foreach (UserControl uc in ChildControls)
+                {
+                    if (uc is SettingsControl)
+                    {
+                        this.Visible = false;
+                        uc.Visible = true;
+                        return;
+                    }
+                }
+            }
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
