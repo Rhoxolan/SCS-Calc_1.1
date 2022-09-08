@@ -153,41 +153,11 @@
             technologicalReserve = null;
         }
 
-        public IStrictСomplianceWithTheStandart ComplianceWithTheStandart
-        {
-            get
-            {
-                if(complianceWithTheStandart == null)
-                {
-                    throw new Exception("Значение настроек не проинициализировано!");
-                }
-                return complianceWithTheStandart;
-            }
-        }
+        public IStrictСomplianceWithTheStandart? ComplianceWithTheStandart { get; }
 
-        public IAnArbitraryNumberOfPorts NumberOfPorts
-        {
-            get
-            {
-                if (numberOfPorts == null)
-                {
-                    throw new Exception("Значение настроек не проинициализировано!");
-                }
-                return numberOfPorts;
-            }
-        }
+        public IAnArbitraryNumberOfPorts? NumberOfPorts { get; }
 
-        public ITechnologicalReserve TechnologicalReserve
-        {
-            get
-            {
-                if (technologicalReserve == null)
-                {
-                    throw new Exception("Значение настроек не проинициализировано!");
-                }
-                return technologicalReserve;
-            }
-        }
+        public ITechnologicalReserve? TechnologicalReserve { get; }
 
         public void SetStrictСomplianceWithTheStandart()
         {

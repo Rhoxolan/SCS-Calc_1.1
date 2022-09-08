@@ -16,8 +16,10 @@ namespace SKS_Calc_1._1
 
         private void SettingsControl_Load(object sender, EventArgs e)
         {
-            checkBoxTechnologicalReserve.Checked = true; //Здесь буде загрузка настроек из файла настроек, состояние чекбоксов будет браться из настроек
-            checkBoxStrictСomplianceWithTheStandart.Checked = true;
+            if (settings != null)
+            {
+                //Проработать первичную загрузку, возможно добавить настройки по-умолчанию именно тут.
+            }
         }
 
         private void buttonBack_Click(object sender, EventArgs e) => GoBack(); //Переход в предыдущий режим
