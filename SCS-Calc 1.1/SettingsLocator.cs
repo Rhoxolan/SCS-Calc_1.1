@@ -4,12 +4,17 @@
     {
         public double GetMinPermanentLink(double minPermanentLink);
         public double GetMaxPermanentLink(double maxPermanentLink);
-        public double GetTechnologicalReserve(double technologicalReserve);
     }
 
     public interface IAnArbitraryNumberOfPorts
     {
         public int GetNumberOfPorts(int numberOfPorts);
+    }
+
+    public interface ITechnologicalReserve
+    {
+        public double TechnologicalReserve { set; }
+        public double GetTechnologicalReserve();
     }
 
     public class StrictСomplianceWithTheStandart : IStrictСomplianceWithTheStandart
@@ -41,60 +46,18 @@
             }
             return minPermanentLink;
         }
-
-        public double GetTechnologicalReserve(double technologicalReserve)
-        {
-            if (technologicalReserve > 2)
-            {
-                throw new Exception("Превышено допустимое значение технологического запаса (2.00).");
-            }
-            if (technologicalReserve < 1)
-            {
-                throw new Exception("Значение технологического запаса ниже допустимого (1.00)");
-            }
-            return technologicalReserve;
-        }
     }
 
     public class NonStrictСomplianceWithTheStandart : IStrictСomplianceWithTheStandart
     {
         public double GetMaxPermanentLink(double maxPermanentLink)
         {
-            if (maxPermanentLink > 10000)
-            {
-                throw new Exception("Значение наибольшей длины постоянного линка выше допустимого");
-            }
-            if (maxPermanentLink < 0.01)
-            {
-                throw new Exception("Значение наибольшей длины постоянного линка ниже допустимого");
-            }
             return maxPermanentLink;
         }
 
         public double GetMinPermanentLink(double minPermanentLink)
         {
-            if (minPermanentLink > 10000)
-            {
-                throw new Exception("Значение наибольшей длины постоянного линка выше допустимого");
-            }
-            if (minPermanentLink < 0.01)
-            {
-                throw new Exception("Значение наибольшей длины постоянного линка ниже допустимого");
-            }
             return minPermanentLink;
-        }
-
-        public double GetTechnologicalReserve(double technologicalReserve)
-        {
-            if (technologicalReserve > 10)
-            {
-                throw new Exception("Превышено допустимое значение технологического запаса (10.00).");
-            }
-            if (technologicalReserve < 1)
-            {
-                throw new Exception("Значение технологического запаса ниже допустимого (1.0)");
-            }
-            return technologicalReserve;
         }
     }
 
@@ -102,7 +65,7 @@
     {
         public int GetNumberOfPorts(int numberOfPorts)
         {
-            if(numberOfPorts > 100)
+            if (numberOfPorts > 100)
             {
                 throw new Exception("Превышено допустимое значение количества портов на 1 рабочее место.");
             }
@@ -119,15 +82,61 @@
     {
         public int GetNumberOfPorts(int numberOfPorts)
         {
-            if (numberOfPorts > 10000)
-            {
-                throw new Exception("Превышено допустимое значение количества портов на 1 рабочее место.");
-            }
-            if (numberOfPorts < 1)
-            {
-                throw new Exception("Значение количества портов на 1 рабочее место ниже допустимого.");
-            }
             return numberOfPorts;
+        }
+    }
+
+    public class TechnologicalReserveAvailability : ITechnologicalReserve
+    {
+        private double? technologicalReserve;
+
+        public TechnologicalReserveAvailability()
+        {
+            technologicalReserve = null;
+        }
+
+        public double TechnologicalReserve
+        {
+            set
+            {
+                if (value > 2)
+                {
+                    throw new Exception("Превышено допустимое значение технологического запаса (2.00).");
+                }
+                if (value < 1)
+                {
+                    throw new Exception("Значение технологического запаса ниже допустимого (1.00)");
+                }
+                technologicalReserve = value;
+            }
+        }
+
+        public double GetTechnologicalReserve()
+        {
+            if (technologicalReserve != null)
+            {
+                return (double)technologicalReserve;
+            }
+            else
+            {
+                throw new Exception("Значение технологического запаса не инициализировано.");
+            }
+        }
+    }
+
+    public class NonTechnologicalReserve : ITechnologicalReserve
+    {
+        public double TechnologicalReserve
+        {
+            set
+            {
+                throw new Exception("Учет технологичегского запаса отключен. Пожалуйста, проверьте настройки.");
+            }
+        }
+
+        public double GetTechnologicalReserve()
+        {
+            return 1.00;
         }
     }
 
@@ -135,20 +144,48 @@
     {
         private IStrictСomplianceWithTheStandart? complianceWithTheStandart;
         private IAnArbitraryNumberOfPorts? numberOfPorts;
-        private double technologicalReserve;
+        private ITechnologicalReserve? technologicalReserve;
 
         public SettingsLocator()
         {
             complianceWithTheStandart = null;
             numberOfPorts = null;
-            technologicalReserve = 1;
+            technologicalReserve = null;
         }
 
-        public double TechnologicalReserve
+        public IStrictСomplianceWithTheStandart ComplianceWithTheStandart
         {
-            set
+            get
             {
-                technologicalReserve = value;
+                if(complianceWithTheStandart == null)
+                {
+                    throw new Exception("Значение настроек не проинициализировано!");
+                }
+                return complianceWithTheStandart;
+            }
+        }
+
+        public IAnArbitraryNumberOfPorts NumberOfPorts
+        {
+            get
+            {
+                if (numberOfPorts == null)
+                {
+                    throw new Exception("Значение настроек не проинициализировано!");
+                }
+                return numberOfPorts;
+            }
+        }
+
+        public ITechnologicalReserve TechnologicalReserve
+        {
+            get
+            {
+                if (technologicalReserve == null)
+                {
+                    throw new Exception("Значение настроек не проинициализировано!");
+                }
+                return technologicalReserve;
             }
         }
 
@@ -172,28 +209,14 @@
             numberOfPorts = new AnArbitraryNumberOfPorts();
         }
 
-        public (double MinPermanentLink, double MaxPermanentLink, double AveragePermanentLink, int NumberOfWorkplaces, int NumberOfPorts, double? СableQuantity,
-            double? CableHankMeterage, int? HankQuantity, double TotalСableQuantity)
-            Calculate(double minPermanentLink, double maxPermanentLink, int numberOfWorkplaces, int numberOfPorts, double? cableHankMeterage)
+        public void SetTechnologicalReserveAvailability()
         {
-            if(cableHankMeterage != null)
-            {
-                double TechnologicalReserve = complianceWithTheStandart!.GetTechnologicalReserve(technologicalReserve);
-                double MinPermanentLink = complianceWithTheStandart!.GetMinPermanentLink(minPermanentLink);
-                double MaxPermanentLink = complianceWithTheStandart!.GetMaxPermanentLink(maxPermanentLink);
-                double AveragePermanentLink = (MinPermanentLink + MaxPermanentLink) / 2 * TechnologicalReserve;
-                int NumberOfWorkplaces = numberOfWorkplaces;
-                int NumberOfPorts = this.numberOfPorts!.GetNumberOfPorts(numberOfPorts);
-                double? CableHankMeterage = cableHankMeterage;
-                double СableQuantity = AveragePermanentLink * NumberOfWorkplaces * NumberOfPorts;
-                int HankQuantity = (int)Math.Ceiling(NumberOfWorkplaces * NumberOfPorts / Math.Floor((double)(CableHankMeterage / AveragePermanentLink)));
-                double TotalСableQuantity = (double)(HankQuantity * CableHankMeterage);
-                return (MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, СableQuantity, CableHankMeterage, HankQuantity, TotalСableQuantity);
-            }
-            else
-            {
-                return new();
-            }
+            technologicalReserve = new TechnologicalReserveAvailability();
+        }
+
+        public void NonTechnologicalReserve()
+        {
+            technologicalReserve = new NonTechnologicalReserve();
         }
     }
 }
