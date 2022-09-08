@@ -66,6 +66,7 @@
             this.checkBoxAnArbitraryNumberOfPorts.TabIndex = 23;
             this.checkBoxAnArbitraryNumberOfPorts.Text = "Разрешить произвольное количество портов на 1 рабочее место";
             this.checkBoxAnArbitraryNumberOfPorts.UseVisualStyleBackColor = true;
+            this.checkBoxAnArbitraryNumberOfPorts.CheckedChanged += new System.EventHandler(this.checkBoxAnArbitraryNumberOfPorts_CheckedChanged);
             // 
             // checkBoxTechnologicalReserve
             // 
@@ -87,6 +88,11 @@
             0,
             131072});
             this.numericUpDownTechnologicalReserve.Location = new System.Drawing.Point(3, 78);
+            this.numericUpDownTechnologicalReserve.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.numericUpDownTechnologicalReserve.Minimum = new decimal(new int[] {
             100,
             0,
@@ -100,6 +106,7 @@
             0,
             0,
             131072});
+            this.numericUpDownTechnologicalReserve.ValueChanged += new System.EventHandler(this.numericUpDownTechnologicalReserve_ValueChanged);
             // 
             // SettingsControl
             // 

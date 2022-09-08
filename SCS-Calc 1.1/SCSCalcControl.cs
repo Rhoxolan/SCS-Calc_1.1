@@ -4,13 +4,13 @@ namespace SKS_Calc_1._1
 {
     public class SCSCalcControl : UserControl
     {
-        protected SettingsLocator? settings;
-        protected BindingList<Configuration>? configurations;
-        protected string? docPath;
+        protected SettingsLocator settings;
+        protected BindingList<Configuration> configurations;
+        protected string docPath;
 
-        public SCSCalcControl? ParentControl { get; set; }
+        public SCSCalcControl ParentControl { get; set; }
 
-        public List<SCSCalcControl>? ChildControls { get; set; }
+        public List<SCSCalcControl> ChildControls { get; set; }
 
         protected void GoBack() //Переход в предыдущий режим
         {

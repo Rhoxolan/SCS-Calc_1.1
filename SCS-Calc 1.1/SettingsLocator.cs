@@ -13,8 +13,8 @@
 
     public interface ITechnologicalReserve
     {
-        public double TechnologicalReserve { set; }
         public double GetTechnologicalReserve();
+        public void SetTechnologicalReserve(double value);
     }
 
     public class StrictСomplianceWithTheStandart : IStrictСomplianceWithTheStandart
@@ -95,20 +95,17 @@
             technologicalReserve = null;
         }
 
-        public double TechnologicalReserve
+        public void SetTechnologicalReserve(double value)
         {
-            set
+            if (value > 2)
             {
-                if (value > 2)
-                {
-                    throw new Exception("Превышено допустимое значение технологического запаса (2.00).");
-                }
-                if (value < 1)
-                {
-                    throw new Exception("Значение технологического запаса ниже допустимого (1.00)");
-                }
-                technologicalReserve = value;
+                throw new Exception("Превышено допустимое значение технологического запаса (2.00).");
             }
+            if (value < 1)
+            {
+                throw new Exception("Значение технологического запаса ниже допустимого (1.00)");
+            }
+            technologicalReserve = value;
         }
 
         public double GetTechnologicalReserve()
@@ -126,12 +123,9 @@
 
     public class NonTechnologicalReserve : ITechnologicalReserve
     {
-        public double TechnologicalReserve
+        public void SetTechnologicalReserve(double value)
         {
-            set
-            {
-                throw new Exception("Учет технологичегского запаса отключен. Пожалуйста, проверьте настройки.");
-            }
+            throw new Exception("Учёт технологичегского запаса отключён. Пожалуйста, проверьте настройки.");
         }
 
         public double GetTechnologicalReserve()
@@ -142,9 +136,9 @@
 
     public class SettingsLocator
     {
-        private IStrictСomplianceWithTheStandart? complianceWithTheStandart;
-        private IAnArbitraryNumberOfPorts? numberOfPorts;
-        private ITechnologicalReserve? technologicalReserve;
+        private IStrictСomplianceWithTheStandart complianceWithTheStandart;
+        private IAnArbitraryNumberOfPorts numberOfPorts;
+        private ITechnologicalReserve technologicalReserve;
 
         public SettingsLocator()
         {
@@ -153,11 +147,29 @@
             technologicalReserve = null;
         }
 
-        public IStrictСomplianceWithTheStandart? ComplianceWithTheStandart { get; }
+        public IStrictСomplianceWithTheStandart ComplianceWithTheStandart
+        {
+            get
+            {
+                return complianceWithTheStandart;
+            }
+        }
 
-        public IAnArbitraryNumberOfPorts? NumberOfPorts { get; }
+        public IAnArbitraryNumberOfPorts NumberOfPorts
+        {
+            get
+            {
+                return numberOfPorts;
+            }
+        }
 
-        public ITechnologicalReserve? TechnologicalReserve { get; }
+        public ITechnologicalReserve TechnologicalReserve
+        {
+            get
+            {
+                return technologicalReserve;
+            }
+        }
 
         public void SetStrictСomplianceWithTheStandart()
         {
@@ -184,7 +196,7 @@
             technologicalReserve = new TechnologicalReserveAvailability();
         }
 
-        public void NonTechnologicalReserve()
+        public void SetNonTechnologicalReserve()
         {
             technologicalReserve = new NonTechnologicalReserve();
         }

@@ -16,9 +16,37 @@ namespace SKS_Calc_1._1
 
         private void SettingsControl_Load(object sender, EventArgs e)
         {
+            //Первичная настройка потом забрать
+            settings.SetStrictСomplianceWithTheStandart();
+            settings.SetAnArbitraryNumberOfPorts();
+            settings.SetTechnologicalReserveAvailability();
+
             if (settings != null)
             {
-                //Проработать первичную загрузку, возможно добавить настройки по-умолчанию именно тут.
+                if(settings.ComplianceWithTheStandart is StrictСomplianceWithTheStandart)
+                {
+                    checkBoxStrictСomplianceWithTheStandart.Checked = true;
+                }
+                else
+                {
+                    checkBoxStrictСomplianceWithTheStandart.Checked = false;
+                }
+                if(settings.NumberOfPorts is AnArbitraryNumberOfPorts)
+                {
+                    checkBoxAnArbitraryNumberOfPorts.Checked = true;
+                }
+                else
+                {
+                    checkBoxAnArbitraryNumberOfPorts.Checked = false;
+                }
+                if(settings.TechnologicalReserve is TechnologicalReserveAvailability)
+                {
+                    checkBoxTechnologicalReserve.Checked = true;
+                }
+                else
+                {
+                    checkBoxTechnologicalReserve.Checked = false;
+                }
             }
         }
 
@@ -29,11 +57,25 @@ namespace SKS_Calc_1._1
             if (checkBoxStrictСomplianceWithTheStandart.Checked)
             {
                 checkBoxAnArbitraryNumberOfPorts.Enabled = true;
+                settings.SetStrictСomplianceWithTheStandart();
             }
             if (!checkBoxStrictСomplianceWithTheStandart.Checked)
             {
-                checkBoxAnArbitraryNumberOfPorts.Checked = false;
+                checkBoxAnArbitraryNumberOfPorts.Checked = true;
                 checkBoxAnArbitraryNumberOfPorts.Enabled = false;
+                settings.SetNonStrictСomplianceWithTheStandart();
+            }
+        }
+
+        private void checkBoxAnArbitraryNumberOfPorts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAnArbitraryNumberOfPorts.Checked)
+            {
+                settings.SetAnArbitraryNumberOfPorts();
+            }
+            if (!checkBoxAnArbitraryNumberOfPorts.Checked)
+            {
+                settings.SetNotAnArbitraryNumberOfPorts();
             }
         }
 
@@ -42,10 +84,21 @@ namespace SKS_Calc_1._1
             if (checkBoxTechnologicalReserve.Checked)
             {
                 numericUpDownTechnologicalReserve.Enabled = true;
+                settings.SetTechnologicalReserveAvailability();
+                settings.TechnologicalReserve?.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
             if (!checkBoxTechnologicalReserve.Checked)
             {
                 numericUpDownTechnologicalReserve.Enabled = false;
+                settings.SetNonTechnologicalReserve();
+            }
+        }
+
+        private void numericUpDownTechnologicalReserve_ValueChanged(object sender, EventArgs e)
+        {
+            if (settings.TechnologicalReserve is TechnologicalReserveAvailability)
+            {
+                settings.TechnologicalReserve?.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
         }
     }
