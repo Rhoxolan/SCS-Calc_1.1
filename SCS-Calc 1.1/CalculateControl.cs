@@ -61,8 +61,8 @@ namespace SKS_Calc_1._1
                     textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
                     textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
                     textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
-                    textBoxOutputСableQuantity.Text = ((double)configuration.СableQuantity).ToString("F" + 2);
-                    textBoxOutputCableHankMeterage.Text = ((double)configuration.CableHankMeterage).ToString("F" + 2);
+                    textBoxOutputСableQuantity.Text = configuration.СableQuantity?.ToString("F" + 2);
+                    textBoxOutputCableHankMeterage.Text = configuration.CableHankMeterage?.ToString("F" + 2);
                     textBoxOutputHankQuantity.Text = configuration.HankQuantity.ToString();
                     textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
                 }

@@ -85,7 +85,7 @@ namespace SKS_Calc_1._1
             {
                 numericUpDownTechnologicalReserve.Enabled = true;
                 settings.SetTechnologicalReserveAvailability();
-                settings.TechnologicalReserve?.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settings.TechnologicalReserve.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
             if (!checkBoxTechnologicalReserve.Checked)
             {
@@ -98,7 +98,7 @@ namespace SKS_Calc_1._1
         {
             if (settings.TechnologicalReserve is TechnologicalReserveAvailability)
             {
-                settings.TechnologicalReserve?.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settings.TechnologicalReserve.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
         }
     }
