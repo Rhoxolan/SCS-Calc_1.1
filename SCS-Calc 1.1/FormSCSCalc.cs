@@ -5,6 +5,7 @@ namespace SKS_Calc_1._1
 {
     public partial class FormSCSCalc : Form
     {
+        private SettingsLocator settings;
         private BindingList<Configuration> configurations;
         private CalculateControl calculateControl;
         private HistoryControl historyControl;
@@ -19,10 +20,11 @@ namespace SKS_Calc_1._1
             folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SCS-Calc Data Folder");
             docPath = Path.Combine(folderPath, "SCS-CalcData.json");
             Loader();
-            calculateControl = new(configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
-            historyControl = new(configurations, docPath);
-            settingsControl = new(configurations, docPath);
-            informationControl = new(configurations, docPath);
+            settings = new();
+            calculateControl = new(settings, configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
+            historyControl = new(settings, configurations, docPath);
+            settingsControl = new(settings, configurations, docPath);
+            informationControl = new(settings, configurations, docPath);
             calculateControl.ChildControls.Add(historyControl);
             calculateControl.ChildControls.Add(settingsControl);
             calculateControl.ChildControls.Add(informationControl);

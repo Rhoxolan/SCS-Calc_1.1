@@ -4,6 +4,7 @@ namespace SKS_Calc_1._1
 {
     public class SCSCalcControl : UserControl
     {
+        protected SettingsLocator? settings;
         protected BindingList<Configuration>? configurations;
         protected string? docPath;
 

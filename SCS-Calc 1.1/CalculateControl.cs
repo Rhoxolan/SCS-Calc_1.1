@@ -5,11 +5,12 @@ namespace SKS_Calc_1._1
 {
     public partial class CalculateControl : SCSCalcControl
     {
-        public CalculateControl(BindingList<Configuration> configurations, string docPath)
+        public CalculateControl(SettingsLocator settings, BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
             ParentControl = null;
             ChildControls = new();
+            this.settings = settings;
             this.configurations = configurations;
             this.docPath = docPath;
             this.Load += OutputBlockCleaner; //Устанавливаем начальное отображение блока вывода
