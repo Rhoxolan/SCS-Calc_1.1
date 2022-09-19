@@ -5,12 +5,12 @@ namespace SKS_Calc_1._1
 {
     public partial class CalculateControl : SCSCalcControl
     {
-        public CalculateControl(SettingsLocator settings, BindingList<Configuration> configurations, string docPath)
+        public CalculateControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
             ParentControl = null;
             ChildControls = new();
-            this.settings = settings;
+            this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
             this.Load += OutputBlockCleaner; //Устанавливаем начальное отображение блока вывода
@@ -53,7 +53,7 @@ namespace SKS_Calc_1._1
             {
                 if (checkBoxCableHankMeterage.Checked)
                 {
-                    Configuration configuration = ConfigurationCalculator.Calculate(settings, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                    Configuration configuration = ConfigurationCalculator.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
                     (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, (double)numericUpDownCableHankMeterage.Value);
                     configurations.Add(configuration);
                     textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
@@ -68,7 +68,7 @@ namespace SKS_Calc_1._1
                 }
                 else
                 {
-                    Configuration configuration = ConfigurationCalculator.Calculate(settings, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                    Configuration configuration = ConfigurationCalculator.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
                     (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, null);
                     configurations.Add(configuration);
                     textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);

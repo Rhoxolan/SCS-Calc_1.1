@@ -224,13 +224,61 @@
         {
             technologicalReserve = new NonTechnologicalReserve();
         }
+
+        public bool IsStrictСomplianceWithTheStandart
+        {
+            get
+            {
+                if (complianceWithTheStandart is StrictСomplianceWithTheStandart)
+                {
+                    return true;
+                }
+                if(complianceWithTheStandart is NonStrictСomplianceWithTheStandart)
+                {
+                    return false;
+                }
+                throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
+            }
+        }
+
+        public bool IsAnArbitraryNumberOfPorts
+        {
+            get
+            {
+                if (numberOfPorts is AnArbitraryNumberOfPorts)
+                {
+                    return true;
+                }
+                if (numberOfPorts is NotAnArbitraryNumberOfPorts)
+                {
+                    return false;
+                }
+                throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
+            }
+        }
+
+        public bool IsTechnologicalReserveAvailability
+        {
+            get
+            {
+                if (numberOfPorts is TechnologicalReserveAvailability)
+                {
+                    return true;
+                }
+                if (numberOfPorts is NonTechnologicalReserve)
+                {
+                    return false;
+                }
+                throw new Exception("Значение технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
+            }
+        }
     }
 
-    public class Settings //Проверено на nullable
+    public class SettingsPresent //Проверено на nullable
     {
         private SettingsLocator settingsLocator;
 
-        public Settings()
+        public SettingsPresent()
         {
             settingsLocator = new();
         }
@@ -254,5 +302,20 @@
         public void SetTechnologicalReserveAvailability() => settingsLocator.SetTechnologicalReserveAvailability();
 
         public void SetNonTechnologicalReserve() => settingsLocator.SetNonTechnologicalReserve();
+
+        public bool IsStrictСomplianceWithTheStandart
+        {
+            get => settingsLocator.IsStrictСomplianceWithTheStandart;
+        }
+
+        public bool IsAnArbitraryNumberOfPorts
+        {
+            get => settingsLocator.IsAnArbitraryNumberOfPorts;
+        }
+
+        public bool IsTechnologicalReserveAvailability
+        {
+            get => settingsLocator.IsTechnologicalReserveAvailability;
+        }
     }
 }

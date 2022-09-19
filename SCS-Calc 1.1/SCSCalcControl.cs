@@ -2,9 +2,9 @@
 
 namespace SKS_Calc_1._1
 {
-    public class SCSCalcControl : UserControl
+    public class SCSCalcControl : UserControl //Проверено на nullable
     {
-        protected SettingsLocator? settings;
+        protected SettingsPresent? settingsPresent;
         protected BindingList<Configuration>? configurations;
         protected string? docPath;
 

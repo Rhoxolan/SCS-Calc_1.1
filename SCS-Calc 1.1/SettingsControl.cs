@@ -4,12 +4,12 @@ namespace SKS_Calc_1._1
 {
     public partial class SettingsControl : SCSCalcControl
     {
-        public SettingsControl(SettingsLocator settings, BindingList<Configuration> configurations, string docPath)
+        public SettingsControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
             ParentControl = null;
             ChildControls = new();
-            this.settings = settings;
+            this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
         }
@@ -17,13 +17,13 @@ namespace SKS_Calc_1._1
         private void SettingsControl_Load(object sender, EventArgs e)
         {
             //Первичная настройка потом забрать
-            settings.SetStrictСomplianceWithTheStandart();
-            settings.SetAnArbitraryNumberOfPorts();
-            settings.SetTechnologicalReserveAvailability();
+            settingsPresent.SetStrictСomplianceWithTheStandart();
+            settingsPresent.SetAnArbitraryNumberOfPorts();
+            settingsPresent.SetTechnologicalReserveAvailability();
 
-            if (settings != null)
+            if (settingsPresent != null)
             {
-                if(settings.ComplianceWithTheStandart is StrictСomplianceWithTheStandart) //Разобраться с этим
+                if(settingsPresent.IsStrictСomplianceWithTheStandart)
                 {
                     checkBoxStrictСomplianceWithTheStandart.Checked = true;
                 }
@@ -31,7 +31,7 @@ namespace SKS_Calc_1._1
                 {
                     checkBoxStrictСomplianceWithTheStandart.Checked = false;
                 }
-                if(settings.NumberOfPorts is AnArbitraryNumberOfPorts)
+                if(settingsPresent.IsAnArbitraryNumberOfPorts)
                 {
                     checkBoxAnArbitraryNumberOfPorts.Checked = true;
                 }
@@ -39,7 +39,7 @@ namespace SKS_Calc_1._1
                 {
                     checkBoxAnArbitraryNumberOfPorts.Checked = false;
                 }
-                if(settings.TechnologicalReserve is TechnologicalReserveAvailability)
+                if(settingsPresent.IsTechnologicalReserveAvailability)
                 {
                     checkBoxTechnologicalReserve.Checked = true;
                 }
@@ -57,13 +57,13 @@ namespace SKS_Calc_1._1
             if (checkBoxStrictСomplianceWithTheStandart.Checked)
             {
                 checkBoxAnArbitraryNumberOfPorts.Enabled = true;
-                settings.SetStrictСomplianceWithTheStandart();
+                settingsPresent.SetStrictСomplianceWithTheStandart();
             }
             if (!checkBoxStrictСomplianceWithTheStandart.Checked)
             {
                 checkBoxAnArbitraryNumberOfPorts.Checked = true;
                 checkBoxAnArbitraryNumberOfPorts.Enabled = false;
-                settings.SetNonStrictСomplianceWithTheStandart();
+                settingsPresent.SetNonStrictСomplianceWithTheStandart();
             }
         }
 
@@ -71,11 +71,11 @@ namespace SKS_Calc_1._1
         {
             if (checkBoxAnArbitraryNumberOfPorts.Checked)
             {
-                settings.SetAnArbitraryNumberOfPorts();
+                settingsPresent.SetAnArbitraryNumberOfPorts();
             }
             if (!checkBoxAnArbitraryNumberOfPorts.Checked)
             {
-                settings.SetNotAnArbitraryNumberOfPorts();
+                settingsPresent.SetNotAnArbitraryNumberOfPorts();
             }
         }
 
@@ -84,21 +84,21 @@ namespace SKS_Calc_1._1
             if (checkBoxTechnologicalReserve.Checked)
             {
                 numericUpDownTechnologicalReserve.Enabled = true;
-                settings.SetTechnologicalReserveAvailability();
-                settings.TechnologicalReserve.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settingsPresent.SetTechnologicalReserveAvailability();
+                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value); //Разобраться с этим
             }
             if (!checkBoxTechnologicalReserve.Checked)
             {
                 numericUpDownTechnologicalReserve.Enabled = false;
-                settings.SetNonTechnologicalReserve();
+                settingsPresent.SetNonTechnologicalReserve();
             }
         }
 
         private void numericUpDownTechnologicalReserve_ValueChanged(object sender, EventArgs e)
         {
-            if (settings.TechnologicalReserve is TechnologicalReserveAvailability)
+            if (settingsPresent.IsTechnologicalReserveAvailability)
             {
-                settings.TechnologicalReserve.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
         }
     }

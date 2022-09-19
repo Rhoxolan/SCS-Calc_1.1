@@ -5,12 +5,12 @@ namespace SKS_Calc_1._1
 {
     public partial class HistoryControl : SCSCalcControl
     {
-        public HistoryControl(SettingsLocator settings, BindingList<Configuration> configurations, string docPath)
+        public HistoryControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
             ParentControl = null;
             ChildControls = new();
-            this.settings = settings;
+            this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
             listBoxConfigurationsList.DataSource = configurations;

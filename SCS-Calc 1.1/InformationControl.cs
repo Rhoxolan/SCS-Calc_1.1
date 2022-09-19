@@ -6,12 +6,12 @@ namespace SKS_Calc_1._1
 {
     public partial class InformationControl : SCSCalcControl
     {
-        public InformationControl(SettingsLocator settings, BindingList<Configuration> configurations, string docPath)
+        public InformationControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
         {
             InitializeComponent();
             ParentControl = null;
             ChildControls = new();
-            this.settings = settings;
+            this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
         }
