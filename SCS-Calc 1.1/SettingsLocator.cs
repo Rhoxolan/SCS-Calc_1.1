@@ -155,7 +155,7 @@
             }
             else
             {
-                throw new Exception("Значение технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
+                throw new Exception("Значение необходимости учёта технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
 
@@ -192,6 +192,18 @@
             else
             {
                 throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
+            }
+        }
+
+        public void SetTechnologicalReserve(double value)
+        {
+            if(technologicalReserve != null)
+            {
+                technologicalReserve.SetTechnologicalReserve(value);
+            }
+            else
+            {
+                throw new Exception("Значение необходимости учёта технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
 
@@ -233,7 +245,7 @@
                 {
                     return true;
                 }
-                if(complianceWithTheStandart is NonStrictСomplianceWithTheStandart)
+                if (complianceWithTheStandart is NonStrictСomplianceWithTheStandart)
                 {
                     return false;
                 }
@@ -261,15 +273,15 @@
         {
             get
             {
-                if (numberOfPorts is TechnologicalReserveAvailability)
+                if (technologicalReserve is TechnologicalReserveAvailability)
                 {
                     return true;
                 }
-                if (numberOfPorts is NonTechnologicalReserve)
+                if (technologicalReserve is NonTechnologicalReserve)
                 {
                     return false;
                 }
-                throw new Exception("Значение технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
+                throw new Exception("Значение необходимости учёта технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
     }
@@ -302,6 +314,8 @@
         public void SetTechnologicalReserveAvailability() => settingsLocator.SetTechnologicalReserveAvailability();
 
         public void SetNonTechnologicalReserve() => settingsLocator.SetNonTechnologicalReserve();
+
+        public void SetTechnologicalReserve(double value) => settingsLocator.SetTechnologicalReserve(value);
 
         public bool IsStrictСomplianceWithTheStandart
         {

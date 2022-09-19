@@ -85,7 +85,7 @@ namespace SKS_Calc_1._1
             {
                 numericUpDownTechnologicalReserve.Enabled = true;
                 settingsPresent.SetTechnologicalReserveAvailability();
-                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value); //Разобраться с этим
+                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
             }
             if (!checkBoxTechnologicalReserve.Checked)
             {
