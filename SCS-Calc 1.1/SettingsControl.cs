@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using SCSCalcClassLibrary;
 
 namespace SKS_Calc_1._1
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
+using SCSCalcClassLibrary;
 
 namespace SKS_Calc_1._1
 {

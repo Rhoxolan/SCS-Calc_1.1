@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 
-namespace SKS_Calc_1._1
+namespace SCSCalcClassLibrary
 {
-    public class SCSCalcControl : UserControl //Проверено на nullable
+    //Класс, представлящий единицу режима приложения SCS-Calc
+    public class SCSCalcControl : UserControl
     {
         protected SettingsPresent? settingsPresent;
         protected BindingList<Configuration>? configurations;
