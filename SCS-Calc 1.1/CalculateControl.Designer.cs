@@ -198,11 +198,6 @@
             // numericUpDownNumberOfPorts
             // 
             this.numericUpDownNumberOfPorts.Location = new System.Drawing.Point(3, 150);
-            this.numericUpDownNumberOfPorts.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.numericUpDownNumberOfPorts.Minimum = new decimal(new int[] {
             1,
             0,

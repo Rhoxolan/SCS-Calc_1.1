@@ -7,12 +7,8 @@
         {
             if (maxPermanentLink > 90)
             {
-                throw new Exception("Превышено значение наибольшей длины постоянного линка. " +
+                throw new SCSCalcException("Превышено значение наибольшей длины постоянного линка. " +
                     "Согласно стандарту ISO/IEC 11801 значение постоянного линка не должно превышать 90 м.");
-            }
-            if (maxPermanentLink < 1)
-            {
-                throw new Exception("Значение наибольшей длины постоянного линка ниже допустимого");
             }
             return maxPermanentLink;
         }
@@ -21,12 +17,8 @@
         {
             if (minPermanentLink > 90)
             {
-                throw new Exception("Превышено значение наименьшей длины постоянного линка. " +
+                throw new SCSCalcException("Превышено значение наименьшей длины постоянного линка. " +
                     "Согласно стандарту ISO/IEC 11801 значение постоянного линка не должно превышать 90 м.");
-            }
-            if (minPermanentLink < 1)
-            {
-                throw new Exception("Значение наименьшей длины постоянного линка ниже допустимого");
             }
             return minPermanentLink;
         }

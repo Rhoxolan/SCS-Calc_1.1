@@ -12,14 +12,6 @@
 
         public void SetTechnologicalReserve(double value)
         {
-            if (value > 2)
-            {
-                throw new Exception("Превышено допустимое значение технологического запаса (2.00).");
-            }
-            if (value < 1)
-            {
-                throw new Exception("Значение технологического запаса ниже допустимого (1.00)");
-            }
             technologicalReserve = value;
         }
 
@@ -31,7 +23,7 @@
             }
             else
             {
-                throw new Exception("Значение технологического запаса не инициализировано.");
+                throw new SCSCalcException("Значение технологического запаса не инициализировано.");
             }
         }
     }

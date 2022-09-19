@@ -81,9 +81,9 @@ namespace SKS_Calc_1._1
                 }
                 buttonOutputSaveToTxt.Enabled = true;
             }
-            catch (Exception ex)
+            catch (SCSCalcException exception)
             {
-                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(exception.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

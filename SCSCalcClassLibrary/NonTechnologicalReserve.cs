@@ -5,7 +5,7 @@
     {
         public void SetTechnologicalReserve(double value)
         {
-            throw new Exception("Учёт технологичегского запаса отключён. Пожалуйста, проверьте настройки.");
+            throw new SCSCalcException("Учёт технологичегского запаса отключён. Пожалуйста, проверьте настройки.");
         }
 
         public double GetTechnologicalReserve()
