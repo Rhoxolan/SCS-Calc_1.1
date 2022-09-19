@@ -86,7 +86,7 @@
         }
     }
 
-    public class TechnologicalReserveAvailability : ITechnologicalReserve
+    public class TechnologicalReserveAvailability : ITechnologicalReserve //Проверено на nullable
     {
         private double? technologicalReserve;
 
@@ -134,11 +134,11 @@
         }
     }
 
-    public class SettingsLocator
+    public class SettingsLocator  //Проверено на nullable
     {
-        private IStrictСomplianceWithTheStandart complianceWithTheStandart;
-        private IAnArbitraryNumberOfPorts numberOfPorts;
-        private ITechnologicalReserve technologicalReserve;
+        private IStrictСomplianceWithTheStandart? complianceWithTheStandart;
+        private IAnArbitraryNumberOfPorts? numberOfPorts;
+        private ITechnologicalReserve? technologicalReserve;
 
         public SettingsLocator()
         {
@@ -147,27 +147,51 @@
             technologicalReserve = null;
         }
 
-        public IStrictСomplianceWithTheStandart ComplianceWithTheStandart
+        public double GetTechnologicalReserve()
         {
-            get
+            if (technologicalReserve != null)
             {
-                return complianceWithTheStandart;
+                return technologicalReserve.GetTechnologicalReserve();
+            }
+            else
+            {
+                throw new Exception("Значение технологического запаса не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
 
-        public IAnArbitraryNumberOfPorts NumberOfPorts
+        public double GetMinPermanentLink(double minPermanentLink)
         {
-            get
+            if (complianceWithTheStandart != null)
             {
-                return numberOfPorts;
+                return complianceWithTheStandart.GetMinPermanentLink(minPermanentLink);
+            }
+            else
+            {
+                throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
 
-        public ITechnologicalReserve TechnologicalReserve
+        public double GetMaxPermanentLink(double maxPermanentLink)
         {
-            get
+            if (complianceWithTheStandart != null)
             {
-                return technologicalReserve;
+                return complianceWithTheStandart.GetMaxPermanentLink(maxPermanentLink);
+            }
+            else
+            {
+                throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
+            }
+        }
+
+        public int GetNumberOfPorts(int numberOfPorts)
+        {
+            if(this.numberOfPorts != null)
+            {
+                return this.numberOfPorts.GetNumberOfPorts(numberOfPorts);
+            }
+            else
+            {
+                throw new Exception("Значение соответствия стандарту ISO/IEC 11801 не инициализировано. Пожалуйста, проверьте настройки.");
             }
         }
 
@@ -200,5 +224,35 @@
         {
             technologicalReserve = new NonTechnologicalReserve();
         }
+    }
+
+    public class Settings //Проверено на nullable
+    {
+        private SettingsLocator settingsLocator;
+
+        public Settings()
+        {
+            settingsLocator = new();
+        }
+
+        public double GetTechnologicalReserve() => settingsLocator.GetTechnologicalReserve();
+
+        public double GetMinPermanentLink(double minPermanentLink) => settingsLocator.GetMinPermanentLink(minPermanentLink);
+
+        public double GetMaxPermanentLink(double maxPermanentLink) => settingsLocator.GetMaxPermanentLink(maxPermanentLink);
+
+        public int GetNumberOfPorts(int numberOfPorts) => settingsLocator.GetNumberOfPorts(numberOfPorts);
+
+        public void SetStrictСomplianceWithTheStandart() => settingsLocator.SetStrictСomplianceWithTheStandart();
+
+        public void SetNonStrictСomplianceWithTheStandart() => settingsLocator.SetNonStrictСomplianceWithTheStandart();
+
+        public void SetNotAnArbitraryNumberOfPorts() => settingsLocator.SetNotAnArbitraryNumberOfPorts();
+
+        public void SetAnArbitraryNumberOfPorts() => settingsLocator.SetAnArbitraryNumberOfPorts();
+
+        public void SetTechnologicalReserveAvailability() => settingsLocator.SetTechnologicalReserveAvailability();
+
+        public void SetNonTechnologicalReserve() => settingsLocator.SetNonTechnologicalReserve();
     }
 }

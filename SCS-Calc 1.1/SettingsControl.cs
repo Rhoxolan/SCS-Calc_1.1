@@ -23,7 +23,7 @@ namespace SKS_Calc_1._1
 
             if (settings != null)
             {
-                if(settings.ComplianceWithTheStandart is StrictСomplianceWithTheStandart)
+                if(settings.ComplianceWithTheStandart is StrictСomplianceWithTheStandart) //Разобраться с этим
                 {
                     checkBoxStrictСomplianceWithTheStandart.Checked = true;
                 }
