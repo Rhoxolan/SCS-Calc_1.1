@@ -53,53 +53,39 @@ namespace SKS_Calc_1._1
         {
             if (checkBoxCableHankMeterage.Checked)
             {
-                double TechnologicalReserve = settingsPresent.TechnologicalReserve; //Коэффициент технологического запаса
-                double MinPermanentLink = (double)numericUpDownMinPermanentLink.Value;
-                double MaxPermanentLink = (double)numericUpDownMaxPermanentLink.Value;
-                double AveragePermanentLink = (MinPermanentLink + MaxPermanentLink) / 2 * TechnologicalReserve;
-                int NumberOfWorkplaces = (int)numericUpDownNumberOfWorkplaces.Value;
-                int NumberOfPorts = (int)numericUpDownNumberOfPorts.Value;
-                double CableHankMeterage = (double)numericUpDownCableHankMeterage.Value;
-                if (AveragePermanentLink > CableHankMeterage)
+                Configuration? configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                    (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, (double)numericUpDownCableHankMeterage.Value);
+                if (configuration == null)
                 {
-                    MessageBox.Show("Расчет провести невозможно! Значение средней длины постояного линка " +
-                        "превышает значение метража кабеля в бухте. Согласно стандарту ISO/IEC 11801, сращивание " +
-                        "витой пары запрещено. Повторите расчет с другими параметрами.", "Внимание!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                double СableQuantity = AveragePermanentLink * NumberOfWorkplaces * NumberOfPorts;
-                int HankQuantity = (int)Math.Ceiling(NumberOfWorkplaces * NumberOfPorts / Math.Floor(CableHankMeterage / AveragePermanentLink));
-                double TotalСableQuantity = HankQuantity * CableHankMeterage;
-                configurations.Add(new(DateTime.Now, MinPermanentLink, MaxPermanentLink, AveragePermanentLink,
-                    NumberOfWorkplaces, NumberOfPorts, СableQuantity, CableHankMeterage, HankQuantity, TotalСableQuantity));
-                textBoxOutputMinPermanentLink.Text = MinPermanentLink.ToString("F" + 2);
-                textBoxOutputMaxPermanentLink.Text = MaxPermanentLink.ToString("F" + 2);
-                textBoxOutputAveragePermanentLink.Text = AveragePermanentLink.ToString("F" + 2);
-                textBoxOutputNumberOfWorkplaces.Text = NumberOfWorkplaces.ToString();
-                textBoxOutputNumberOfPorts.Text = NumberOfPorts.ToString();
-                textBoxOutputСableQuantity.Text = СableQuantity.ToString("F" + 2);
-                textBoxOutputCableHankMeterage.Text = CableHankMeterage.ToString("F" + 2);
-                textBoxOutputHankQuantity.Text = HankQuantity.ToString();
-                textBoxOutputTotalСableQuantity.Text = TotalСableQuantity.ToString("F" + 2);
+                configurations.Add(configuration);
+                textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
+                textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
+                textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
+                textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
+                textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
+                textBoxOutputСableQuantity.Text = configuration.СableQuantity?.ToString("F" + 2);
+                textBoxOutputCableHankMeterage.Text = configuration.CableHankMeterage?.ToString("F" + 2);
+                textBoxOutputHankQuantity.Text = configuration.HankQuantity.ToString();
+                textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
             }
+
             else
             {
-                double TechnologicalReserve = settingsPresent.TechnologicalReserve; //Коэффициент технологического запаса
-                double MinPermanentLink = (double)numericUpDownMinPermanentLink.Value;
-                double MaxPermanentLink = (double)numericUpDownMaxPermanentLink.Value;
-                double AveragePermanentLink = (MinPermanentLink + MaxPermanentLink) / 2 * TechnologicalReserve;
-                int NumberOfWorkplaces = (int)numericUpDownNumberOfWorkplaces.Value;
-                int NumberOfPorts = (int)numericUpDownNumberOfPorts.Value;
-                double TotalСableQuantity = AveragePermanentLink * NumberOfWorkplaces * NumberOfPorts;
-                configurations.Add(new(DateTime.Now, MinPermanentLink, MaxPermanentLink, AveragePermanentLink,
-                    NumberOfWorkplaces, NumberOfPorts, null, null, null, TotalСableQuantity));
-                textBoxOutputMinPermanentLink.Text = MinPermanentLink.ToString("F" + 2);
-                textBoxOutputMaxPermanentLink.Text = MaxPermanentLink.ToString("F" + 2);
-                textBoxOutputAveragePermanentLink.Text = AveragePermanentLink.ToString("F" + 2);
-                textBoxOutputNumberOfWorkplaces.Text = NumberOfWorkplaces.ToString();
-                textBoxOutputNumberOfPorts.Text = NumberOfPorts.ToString();
-                textBoxOutputTotalСableQuantity.Text = TotalСableQuantity.ToString("F" + 2);
+                Configuration? configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                    (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, null);
+                if (configuration == null)
+                {
+                    return;
+                }
+                configurations.Add(configuration);
+                textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
+                textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
+                textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
+                textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
+                textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
+                textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
             }
             buttonOutputSaveToTxt.Enabled = true;
         }
