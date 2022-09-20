@@ -22,6 +22,13 @@ namespace SKS_Calc_1._1
             docPath = Path.Combine(folderPath, "SCS-CalcData.json");
             Loader();
             settingsPresent = new();
+
+            //Первичная настройка потом забрать
+            settingsPresent.SetStrictСomplianceWithTheStandart();
+            settingsPresent.SetNotAnArbitraryNumberOfPorts();
+            settingsPresent.SetTechnologicalReserveAvailability();
+
+
             calculateControl = new(settingsPresent, configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
             historyControl = new(settingsPresent, configurations, docPath);
             settingsControl = new(settingsPresent, configurations, docPath);

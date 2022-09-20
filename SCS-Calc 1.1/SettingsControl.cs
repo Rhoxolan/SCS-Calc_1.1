@@ -17,11 +17,6 @@ namespace SKS_Calc_1._1
 
         private void SettingsControl_Load(object sender, EventArgs e)
         {
-            //Первичная настройка потом забрать
-            settingsPresent.SetStrictСomplianceWithTheStandart();
-            settingsPresent.SetAnArbitraryNumberOfPorts();
-            settingsPresent.SetTechnologicalReserveAvailability();
-
             if (settingsPresent != null)
             {
                 if(settingsPresent.IsStrictСomplianceWithTheStandart)
@@ -31,15 +26,27 @@ namespace SKS_Calc_1._1
                 else
                 {
                     checkBoxStrictСomplianceWithTheStandart.Checked = false;
+                    checkBoxAnArbitraryNumberOfPorts.Checked = false;
+                    checkBoxAnArbitraryNumberOfPorts.Enabled = true;
                 }
+
                 if(settingsPresent.IsAnArbitraryNumberOfPorts)
                 {
                     checkBoxAnArbitraryNumberOfPorts.Checked = true;
                 }
                 else
                 {
-                    checkBoxAnArbitraryNumberOfPorts.Checked = false;
+                    if (!settingsPresent.IsStrictСomplianceWithTheStandart)
+                    {
+                        checkBoxAnArbitraryNumberOfPorts.Checked = true;
+                        checkBoxAnArbitraryNumberOfPorts.Enabled = false;
+                    }
+                    else
+                    {
+                        checkBoxAnArbitraryNumberOfPorts.Checked = false;
+                    }
                 }
+
                 if(settingsPresent.IsTechnologicalReserveAvailability)
                 {
                     checkBoxTechnologicalReserve.Checked = true;
@@ -47,7 +54,11 @@ namespace SKS_Calc_1._1
                 else
                 {
                     checkBoxTechnologicalReserve.Checked = false;
+                    numericUpDownTechnologicalReserve.Enabled = false;
                 }
+
+                numericUpDownTechnologicalReserve.Minimum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Min;
+                numericUpDownTechnologicalReserve.Maximum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Max;
             }
         }
 
@@ -86,7 +97,7 @@ namespace SKS_Calc_1._1
             {
                 numericUpDownTechnologicalReserve.Enabled = true;
                 settingsPresent.SetTechnologicalReserveAvailability();
-                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settingsPresent.TechnologicalReserve = (double)numericUpDownTechnologicalReserve.Value;
             }
             if (!checkBoxTechnologicalReserve.Checked)
             {
@@ -99,7 +110,7 @@ namespace SKS_Calc_1._1
         {
             if (settingsPresent.IsTechnologicalReserveAvailability)
             {
-                settingsPresent.SetTechnologicalReserve((double)numericUpDownTechnologicalReserve.Value);
+                settingsPresent.TechnologicalReserve = (double)numericUpDownTechnologicalReserve.Value;
             }
         }
     }
