@@ -1,5 +1,7 @@
 ﻿namespace SCSCalcClassLibrary
 {
+    //Класс, инкапсулирующий объекты для работы с параметрами расчета конфигурации СКС, например, для определения допустимых рамок вводимых значений, определяемых в классах,
+    //реализующих интерфейсы IStrictСomplianceWithTheStandart, IAnArbitraryNumberOfPorts, ITechnologicalReserve и IStandartValues.
     internal class SettingsLocator
     {
         private IStrictСomplianceWithTheStandart? complianceWithTheStandart;

@@ -1,6 +1,6 @@
 ﻿namespace SCSCalcClassLibrary
 {
-
+    //Класс, предоставляющий для других классов приложения доступ к настраиваемым параметрам вводимых значений конфигураций СКС.
     public class SettingsPresent
     {
         private SettingsLocator settingsLocator;

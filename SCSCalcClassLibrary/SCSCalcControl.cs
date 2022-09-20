@@ -2,7 +2,7 @@
 
 namespace SCSCalcClassLibrary
 {
-    //Класс, представлящий единицу режима приложения SCS-Calc
+    //Класс, представлящий единицу режима приложения SCS-Calc, например, режима настроек или режима расчёта.
     public class SCSCalcControl : UserControl
     {
         protected SettingsPresent? settingsPresent;

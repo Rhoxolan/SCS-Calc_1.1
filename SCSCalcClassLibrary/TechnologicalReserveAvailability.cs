@@ -1,5 +1,6 @@
 ﻿namespace SCSCalcClassLibrary
 {
+    //Класс для работы со значением коэффициента технологического запаса с его учётом. Инкапсулирован в класс SettingsLocator.
     internal class TechnologicalReserveAvailability : ITechnologicalReserve
     {
         private double? technologicalReserve;
