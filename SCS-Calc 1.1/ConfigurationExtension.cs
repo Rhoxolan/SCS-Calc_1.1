@@ -1,4 +1,6 @@
-﻿namespace SCSCalcClassLibrary
+﻿using SCSCalcClassLibrary;
+
+namespace SKS_Calc_1._1
 {
     //Методы расширения класса Configuration. Методы создаются для удобства работы с объектами
     //класса Configuration в разных частях приложения, в частности в разных UserControl-ах.

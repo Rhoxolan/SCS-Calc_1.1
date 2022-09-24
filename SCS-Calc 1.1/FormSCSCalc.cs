@@ -25,16 +25,17 @@ namespace SKS_Calc_1._1
             Loader();
             
             Loader2();
-            calculateControl = new(settingsPresent, configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
-            historyControl = new(settingsPresent, configurations, docPath);
-            settingsControl = new(settingsPresent, configurations, docPath);
-            informationControl = new(settingsPresent, configurations, docPath);
+            calculateControl = new(settingsPresent, configurations, docPath, settingsDocPath);
+            historyControl = new(settingsPresent, configurations, docPath, settingsDocPath);
+            settingsControl = new(settingsPresent, configurations, docPath, settingsDocPath);
+            informationControl = new(settingsPresent, configurations, docPath, settingsDocPath);
             calculateControl.ChildControls.Add(historyControl);
             calculateControl.ChildControls.Add(settingsControl);
             calculateControl.ChildControls.Add(informationControl);
             historyControl.ParentControl = calculateControl;
             settingsControl.ParentControl = calculateControl;
             informationControl.ParentControl = calculateControl;
+            this.FormClosed += (o, e) => SettingsPresent.SettingsJSONSerializer(settingsPresent, settingsDocPath);
 
             /* При добавлении в приложение новых UserControl-ов, которые будут представлять новый режим, уровень или
               пункт меню, необходимо указать, какой U.Control является родительским (с какого U.Control-а был вызван
@@ -83,30 +84,34 @@ namespace SKS_Calc_1._1
             }
         }
 
-        private void Loader2()
+        private void Loader2() //Метод для загрузки настроек параметров расчёта конфигураций
         {
             if (File.Exists(settingsDocPath))
             {
-                using FileStream fs = new(settingsDocPath, FileMode.Open);
-                JsonSerializerOptions options = new()
+                try
                 {
-                    IncludeFields = true
-                };
-                settingsPresent = JsonSerializer.Deserialize<SettingsPresent>(fs, options);
+                    settingsPresent = SettingsPresent.SettingsJSONDeserializer(settingsDocPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка считывания настроек параметров расчёта конфигураций:{Environment.NewLine}{ex.Message}{Environment.NewLine}" +
+                        $"Настройки сброшены до стандартных значений.", "Внимание!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    settingsPresent = new();
+                    settingsPresent.SetStrictСomplianceWithTheStandart();
+                    settingsPresent.SetAnArbitraryNumberOfPorts();
+                    settingsPresent.SetTechnologicalReserveAvailability();
+                    SettingsPresent.SettingsJSONSerializer(settingsPresent, settingsDocPath);
+                }
             }
             else
             {
                 //Первичная настройка
                 settingsPresent = new();
                 settingsPresent.SetStrictСomplianceWithTheStandart();
-                settingsPresent.SetNotAnArbitraryNumberOfPorts();
-                settingsPresent.SetNonTechnologicalReserve();
-                using FileStream fs = new(settingsDocPath, FileMode.Create);
-                JsonSerializerOptions options = new()
-                {
-                    IncludeFields = true
-                };
-                JsonSerializer.Serialize(fs, settingsPresent, options); //Разобраться с сериализацией
+                settingsPresent.SetAnArbitraryNumberOfPorts();
+                settingsPresent.SetTechnologicalReserveAvailability();
+                SettingsPresent.SettingsJSONSerializer(settingsPresent, settingsDocPath);
             }
         }
     }

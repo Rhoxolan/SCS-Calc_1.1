@@ -8,6 +8,7 @@ namespace SCSCalcClassLibrary
         protected SettingsPresent? settingsPresent;
         protected BindingList<Configuration>? configurations;
         protected string? docPath;
+        protected string? settingsDocPath;
 
         public SCSCalcControl? ParentControl { get; set; }
 

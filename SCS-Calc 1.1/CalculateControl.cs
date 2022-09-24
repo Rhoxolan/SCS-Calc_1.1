@@ -6,7 +6,7 @@ namespace SKS_Calc_1._1
 {
     public partial class CalculateControl : SCSCalcControl
     {
-        public CalculateControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
+        public CalculateControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath, string settingsDocPath)
         {
             InitializeComponent();
             ParentControl = null;
@@ -14,6 +14,7 @@ namespace SKS_Calc_1._1
             this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
+            this.settingsDocPath = settingsDocPath;
             this.Load += OutputBlockCleaner; //Устанавливаем начальное отображение блока вывода
             buttonCalculate.Click += Saver; //Добавляем обработчик для сохранения данных списка конфигураций
             numericUpDownMinPermanentLink.ValueChanged += OutputBlockCleaner; //Очищаем блок вывода при любых изменениях
@@ -51,43 +52,46 @@ namespace SKS_Calc_1._1
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            if (checkBoxCableHankMeterage.Checked)
+            try
             {
-                Configuration? configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
-                    (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, (double)numericUpDownCableHankMeterage.Value);
-                if (configuration == null)
+                if (checkBoxCableHankMeterage.Checked)
                 {
-                    return;
+                    Configuration configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                        (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, (double)numericUpDownCableHankMeterage.Value);
+                    configurations.Add(configuration);
+                    textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
+                    textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
+                    textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
+                    textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
+                    textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
+                    textBoxOutputСableQuantity.Text = configuration.СableQuantity?.ToString("F" + 2);
+                    textBoxOutputCableHankMeterage.Text = configuration.CableHankMeterage?.ToString("F" + 2);
+                    textBoxOutputHankQuantity.Text = configuration.HankQuantity.ToString();
+                    textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
                 }
-                configurations.Add(configuration);
-                textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
-                textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
-                textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
-                textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
-                textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
-                textBoxOutputСableQuantity.Text = configuration.СableQuantity?.ToString("F" + 2);
-                textBoxOutputCableHankMeterage.Text = configuration.CableHankMeterage?.ToString("F" + 2);
-                textBoxOutputHankQuantity.Text = configuration.HankQuantity.ToString();
-                textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
+                else
+                {
+                    Configuration? configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
+                        (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, null);
+                    configurations.Add(configuration);
+                    textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
+                    textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
+                    textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
+                    textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
+                    textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
+                    textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
+                }
+                buttonOutputSaveToTxt.Enabled = true;
             }
-
-            else
+            catch (SCSCalcException SCSCalcEx)
             {
-                Configuration? configuration = Configuration.Calculate(settingsPresent, (double)numericUpDownMinPermanentLink.Value, (double)numericUpDownMaxPermanentLink.Value,
-                    (int)numericUpDownNumberOfWorkplaces.Value, (int)numericUpDownNumberOfPorts.Value, null);
-                if (configuration == null)
-                {
-                    return;
-                }
-                configurations.Add(configuration);
-                textBoxOutputMinPermanentLink.Text = configuration.MinPermanentLink.ToString("F" + 2);
-                textBoxOutputMaxPermanentLink.Text = configuration.MaxPermanentLink.ToString("F" + 2);
-                textBoxOutputAveragePermanentLink.Text = configuration.AveragePermanentLink.ToString("F" + 2);
-                textBoxOutputNumberOfWorkplaces.Text = configuration.NumberOfWorkplaces.ToString();
-                textBoxOutputNumberOfPorts.Text = configuration.NumberOfPorts.ToString();
-                textBoxOutputTotalСableQuantity.Text = configuration.TotalСableQuantity.ToString("F" + 2);
+                MessageBox.Show(SCSCalcEx.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            buttonOutputSaveToTxt.Enabled = true;
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void buttonOutputSaveToTxt_Click(object sender, EventArgs e)

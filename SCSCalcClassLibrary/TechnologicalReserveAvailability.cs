@@ -20,7 +20,8 @@
                 }
                 else
                 {
-                    throw new SCSCalcException("Значение технологического запаса не инициализировано.");
+                    technologicalReserve = 1.10;
+                    return (double)technologicalReserve;
                 }
             }
             set

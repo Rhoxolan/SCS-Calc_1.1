@@ -7,7 +7,7 @@ namespace SKS_Calc_1._1
 {
     public partial class InformationControl : SCSCalcControl
     {
-        public InformationControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
+        public InformationControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath, string settingsDocPath)
         {
             InitializeComponent();
             ParentControl = null;
@@ -15,6 +15,7 @@ namespace SKS_Calc_1._1
             this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
+            this.settingsDocPath = settingsDocPath;
         }
 
         private void buttonBack_Click(object sender, EventArgs e) => GoBack(); //Переход в предыдущий режим

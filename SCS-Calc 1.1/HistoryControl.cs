@@ -6,7 +6,7 @@ namespace SKS_Calc_1._1
 {
     public partial class HistoryControl : SCSCalcControl
     {
-        public HistoryControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
+        public HistoryControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath, string settingsDocPath)
         {
             InitializeComponent();
             ParentControl = null;
@@ -14,6 +14,7 @@ namespace SKS_Calc_1._1
             this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
+            this.settingsDocPath = settingsDocPath;
             listBoxConfigurationsList.DataSource = configurations;
         }
 

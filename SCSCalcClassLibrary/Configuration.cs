@@ -4,7 +4,7 @@
     public record Configuration(DateTime RecordTime, double MinPermanentLink, double MaxPermanentLink, double AveragePermanentLink,
         int NumberOfWorkplaces, int NumberOfPorts, double? СableQuantity, double? CableHankMeterage, int? HankQuantity, double TotalСableQuantity)
     {
-        public static Configuration? Calculate(SettingsPresent settingsPresent, double minPermanentLink, double maxPermanentLink, int numberOfWorkplaces,
+        public static Configuration Calculate(SettingsPresent settingsPresent, double minPermanentLink, double maxPermanentLink, int numberOfWorkplaces,
             int numberOfPorts, double? cableHankMeterage)
         {
             if (cableHankMeterage != null)
@@ -18,11 +18,9 @@
                 double? CableHankMeterage = ConfigurationValue.CableHankMeterage(cableHankMeterage);
                 if (AveragePermanentLink > CableHankMeterage)
                 {
-                    MessageBox.Show("Расчет провести невозможно! Значение средней длины постояного линка " +
-                        "превышает значение метража кабеля в бухте. Согласно стандарту ISO/IEC 11801, сращивание " +
-                        "витой пары запрещено. Повторите расчет с другими параметрами.", "Внимание!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return null;
+                    throw new SCSCalcException("Расчет провести невозможно! Значение средней длины постояного линка " +
+                         "превышает значение метража кабеля в бухте. Согласно стандарту ISO/IEC 11801, сращивание " +
+                         "витой пары запрещено. Повторите расчет с другими параметрами.");
                 }
                 double? СableQuantity = AveragePermanentLink * NumberOfWorkplaces * NumberOfPorts;
                 int? HankQuantity = (int)Math.Ceiling(NumberOfWorkplaces * NumberOfPorts / Math.Floor((double)(CableHankMeterage / AveragePermanentLink)));

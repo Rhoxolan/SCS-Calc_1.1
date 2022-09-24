@@ -5,7 +5,7 @@ namespace SKS_Calc_1._1
 {
     public partial class SettingsControl : SCSCalcControl
     {
-        public SettingsControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath)
+        public SettingsControl(SettingsPresent settingsPresent, BindingList<Configuration> configurations, string docPath, string settingsDocPath)
         {
             InitializeComponent();
             ParentControl = null;
@@ -13,10 +13,16 @@ namespace SKS_Calc_1._1
             this.settingsPresent = settingsPresent;
             this.configurations = configurations;
             this.docPath = docPath;
+            this.settingsDocPath = settingsDocPath;
+            this.VisibleChanged += (s, e) => SettingsPresent.SettingsJSONSerializer(settingsPresent, settingsDocPath);
         }
 
         private void SettingsControl_Load(object sender, EventArgs e)
         {
+            numericUpDownTechnologicalReserve.Minimum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Min;
+            numericUpDownTechnologicalReserve.Maximum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Max;
+            numericUpDownTechnologicalReserve.Value = (decimal)settingsPresent.TechnologicalReserve;
+
             if (settingsPresent != null)
             {
                 if(settingsPresent.IsStrictСomplianceWithTheStandart)
@@ -26,13 +32,19 @@ namespace SKS_Calc_1._1
                 else
                 {
                     checkBoxStrictСomplianceWithTheStandart.Checked = false;
-                    checkBoxAnArbitraryNumberOfPorts.Checked = false;
-                    checkBoxAnArbitraryNumberOfPorts.Enabled = true;
                 }
 
                 if(settingsPresent.IsAnArbitraryNumberOfPorts)
                 {
-                    checkBoxAnArbitraryNumberOfPorts.Checked = true;
+                    if (!settingsPresent.IsStrictСomplianceWithTheStandart)
+                    {
+                        checkBoxAnArbitraryNumberOfPorts.Checked = true;
+                        checkBoxAnArbitraryNumberOfPorts.Enabled = false;
+                    }
+                    else
+                    {
+                        checkBoxAnArbitraryNumberOfPorts.Checked = true;
+                    }
                 }
                 else
                 {
@@ -57,8 +69,6 @@ namespace SKS_Calc_1._1
                     numericUpDownTechnologicalReserve.Enabled = false;
                 }
 
-                numericUpDownTechnologicalReserve.Minimum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Min;
-                numericUpDownTechnologicalReserve.Maximum = settingsPresent.Diapasons.TechnologicalReserveDiapason.Max;
             }
         }
 
