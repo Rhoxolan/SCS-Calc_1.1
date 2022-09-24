@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
-using SCSCalcClassLibrary;
+using SCSCalc;
+using SCSCalc.WindowsForms;
+using SCSCalc.Settings;
 
 namespace SKS_Calc_1._1
 {

@@ -1,4 +1,4 @@
-﻿using SCSCalcClassLibrary;
+﻿using SCSCalc;
 
 namespace SKS_Calc_1._1
 {

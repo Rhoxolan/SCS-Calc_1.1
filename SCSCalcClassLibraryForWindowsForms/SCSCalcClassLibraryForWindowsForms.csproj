@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SCSCalcClassLibrary\SCSCalcClassLibrary.csproj" />
     <ProjectReference Include="..\SCSCalcSettingsClassLibrary\SCSCalcSettingsClassLibrary.csproj" />
   </ItemGroup>
 

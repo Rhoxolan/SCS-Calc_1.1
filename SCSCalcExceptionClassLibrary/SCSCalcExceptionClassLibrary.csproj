@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SCSCalcExceptionClassLibrary\SCSCalcExceptionClassLibrary.csproj" />
-  </ItemGroup>
-
 </Project>

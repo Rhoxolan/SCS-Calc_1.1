@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Text.Json;
-using SCSCalcClassLibrary;
+using SCSCalc.Settings;
+using SCSCalc;
 
 namespace SKS_Calc_1._1
 {

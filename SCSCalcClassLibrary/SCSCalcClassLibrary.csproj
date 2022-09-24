@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCSCalcExceptionClassLibrary\SCSCalcExceptionClassLibrary.csproj" />
+    <ProjectReference Include="..\SCSCalcSettingsClassLibrary\SCSCalcSettingsClassLibrary.csproj" />
   </ItemGroup>
 
 </Project>
