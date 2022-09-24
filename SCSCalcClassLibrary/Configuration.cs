@@ -1,4 +1,6 @@
-﻿namespace SCSCalcClassLibrary
+﻿using SCSCalc.Settings;
+
+namespace SCSCalc
 {
     //Запись конфигурации СКС
     public record Configuration(DateTime RecordTime, double MinPermanentLink, double MaxPermanentLink, double AveragePermanentLink,
@@ -33,7 +35,7 @@
                 double TechnologicalReserve = ConfigurationValue.TechnologicalReserve(settingsPresent.TechnologicalReserve);
                 double MinPermanentLink = ConfigurationValue.MinPermanentLink(minPermanentLink);
                 double MaxPermanentLink = ConfigurationValue.MaxPermanentLink(maxPermanentLink);
-                double AveragePermanentLink = (MinPermanentLink + MaxPermanentLink) / 2 * TechnologicalReserve;
+                double AveragePermanentLink = (MinPermanentLink + MaxPermanentLink) / 2 * TechnologicalReserve;3
                 int NumberOfWorkplaces = ConfigurationValue.NumberOfWorkplaces(numberOfWorkplaces);
                 int NumberOfPorts = ConfigurationValue.NumberOfPorts(numberOfPorts);
                 double TotalСableQuantity = AveragePermanentLink * NumberOfWorkplaces * NumberOfPorts;

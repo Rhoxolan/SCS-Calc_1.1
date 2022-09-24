@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace SCSCalcClassLibrary
+namespace SCSCalc.Settings
 {
     //Класс, предоставляющий для других классов приложения доступ к настраиваемым параметрам вводимых значений конфигураций СКС.
     public class SettingsPresent

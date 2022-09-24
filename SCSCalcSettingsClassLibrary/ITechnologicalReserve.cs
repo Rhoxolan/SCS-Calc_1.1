@@ -1,4 +1,4 @@
-﻿namespace SCSCalcClassLibrary
+﻿namespace SCSCalc.Settings
 {
     //Интерфейс для работы со значением коэффициента технологического запаса. Инкапсулирован в класс SettingsLocator.
     internal interface ITechnologicalReserve

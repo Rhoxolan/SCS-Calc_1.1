@@ -1,14 +1,14 @@
-﻿namespace SCSCalcClassLibrary
+﻿namespace SCSCalc.Settings
 {
-    //Класс для работы с вводимыми параметрами расчёта в строгом соответствии стандарту ISO/IEC 11801. В первую очередь
+    //Класс для работы с вводимыми параметрами расчёта без строгого соответствия стандарту ISO/IEC 11801. В первую очередь
     //предназначен для определения допустимых рамок значений ввода. Инкапсулирован в класс SettingsLocator.
-    internal class StrictСomplianceWithTheStandart : IStrictСomplianceWithTheStandart
+    internal class NonStrictСomplianceWithTheStandart : IStrictСomplianceWithTheStandart
     {
         public (decimal Min, decimal Max) MinPermanentLinkDiapason
         {
             get
             {
-                return (1M, 90M);
+                return (0.01M, 1000M);
             }
         }
 
@@ -16,7 +16,7 @@
         {
             get
             {
-                return (1M, 90M);
+                return (0.01M, 1000M);
             }
         }
     }

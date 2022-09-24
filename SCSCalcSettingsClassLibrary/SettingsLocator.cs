@@ -1,4 +1,4 @@
-﻿namespace SCSCalcClassLibrary
+﻿namespace SCSCalc.Settings
 {
     //Класс, инкапсулирующий объекты для работы с параметрами расчета конфигурации СКС, например, для определения допустимых рамок вводимых значений, определяемых в классах,
     //реализующих интерфейсы IStrictСomplianceWithTheStandart, IAnArbitraryNumberOfPorts, ITechnologicalReserve и IStandartValues.
