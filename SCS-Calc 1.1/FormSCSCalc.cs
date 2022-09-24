@@ -14,21 +14,17 @@ namespace SKS_Calc_1._1
         private InformationControl informationControl;
         private string folderPath;
         private string docPath;
+        private string settingsDocPath;
 
         public FormSCSCalc()
         {
             InitializeComponent();
             folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SCS-Calc Data Folder");
             docPath = Path.Combine(folderPath, "SCS-CalcData.json");
+            settingsDocPath = "SCS-CalcSettingsData.json";
             Loader();
-            settingsPresent = new();
-
-            //Первичная настройка потом забрать
-            settingsPresent.SetStrictСomplianceWithTheStandart();
-            settingsPresent.SetNotAnArbitraryNumberOfPorts();
-            settingsPresent.SetTechnologicalReserveAvailability();
-
-
+            
+            Loader2();
             calculateControl = new(settingsPresent, configurations, docPath); //Передача контролам ссылки на список конфигураций (BindingList)
             historyControl = new(settingsPresent, configurations, docPath);
             settingsControl = new(settingsPresent, configurations, docPath);
@@ -84,6 +80,33 @@ namespace SKS_Calc_1._1
             else
             {
                 configurations = new();
+            }
+        }
+
+        private void Loader2()
+        {
+            if (File.Exists(settingsDocPath))
+            {
+                using FileStream fs = new(settingsDocPath, FileMode.Open);
+                JsonSerializerOptions options = new()
+                {
+                    IncludeFields = true
+                };
+                settingsPresent = JsonSerializer.Deserialize<SettingsPresent>(fs, options);
+            }
+            else
+            {
+                //Первичная настройка
+                settingsPresent = new();
+                settingsPresent.SetStrictСomplianceWithTheStandart();
+                settingsPresent.SetNotAnArbitraryNumberOfPorts();
+                settingsPresent.SetNonTechnologicalReserve();
+                using FileStream fs = new(settingsDocPath, FileMode.Create);
+                JsonSerializerOptions options = new()
+                {
+                    IncludeFields = true
+                };
+                JsonSerializer.Serialize(fs, settingsPresent, options); //Разобраться с сериализацией
             }
         }
     }
